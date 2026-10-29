@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aonde eu vou? Saúde em Petrópolis</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;800&display=swap">
+<style>
+:root{--y:#FFD93D;--t:#1EE3CF;--p:#FF4D8D;--g:#7CFF6B;--r:#FF5A5F;--ink:#1b1750;--mut:#6b64a8;--soft:#f1eeff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:#5a33f0}
+body{margin:0;min-height:100vh;font-family:"Nunito","Trebuchet MS",system-ui,sans-serif;font-weight:600;color:var(--ink);background:radial-gradient(rgba(255,255,255,.2) 2px,transparent 2.6px) 0 0/44px 44px,linear-gradient(160deg,#3B2BFF,#8A3FFC);background-attachment:fixed}
+h1,h2,h3,.fd{font-family:"Baloo 2","Trebuchet MS",system-ui,sans-serif;font-weight:800;margin:0;line-height:1.05}
+.wrap{max-width:1000px;margin:0 auto;padding:18px 16px 48px}
+.scr[hidden]{display:none}
+button{font:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible,g:focus-visible{outline:4px solid var(--y);outline-offset:2px}
+.card{background:#fff;border-radius:28px;padding:22px;box-shadow:0 8px 0 rgba(30,10,120,.35)}
+.btn{background:var(--y);color:#3a2c00;border:0;border-radius:20px;padding:14px 26px;font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.25rem;box-shadow:0 5px 0 #d9a900;transition:transform .08s,box-shadow .08s}
+.btn:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 #d9a900}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.s{background:var(--soft);color:var(--ink);box-shadow:0 5px 0 #cfc8f5;font-size:1rem;padding:11px 8px}
+.back{width:48px;height:48px;border-radius:16px;border:0;background:rgba(255,255,255,.25);color:#fff;font-size:1.5rem;box-shadow:0 4px 0 rgba(30,10,120,.3)}
+.tag{display:inline-block;background:var(--t);color:var(--ink);font-family:"Baloo 2",sans-serif;font-weight:800;letter-spacing:.06em;font-size:.85rem;padding:6px 14px;border-radius:999px;transform:rotate(-2deg)}
+.pg{width:170px;flex:none}
+.pg svg{width:100%;height:auto;display:block;overflow:visible}
+.hop{animation:hop .5s}.shake{animation:shake .45s}
+@keyframes hop{40%{transform:translateY(-18px) rotate(-5deg)}}
+@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.bub{background:#fff;border:4px solid var(--ink);border-radius:22px;padding:12px 16px;box-shadow:0 5px 0 rgba(0,0,0,.2);font-weight:800}
+/* home */
+.home{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:center;min-height:80vh}
+.home h1{font-size:clamp(3rem,10vw,5.2rem);color:#fff;text-shadow:0 5px 0 rgba(30,10,120,.35);margin:14px 0 6px}
+.home h2{font-size:clamp(1.6rem,5vw,2.4rem);color:var(--y)}
+.mascot{display:flex;align-items:center;gap:6px;margin-top:20px}
+.mascot .bub{max-width:230px}
+.form label{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:1.2rem}
+.form input{width:100%;margin:8px 0 2px;font:inherit;font-weight:800;font-size:1.15rem;padding:14px 16px;border:3px solid #c9c0f7;border-radius:18px;background:var(--soft);color:var(--ink)}
+.cnt{text-align:right;font-size:.85rem;color:var(--mut)}
+.form .btn{width:100%;margin:10px 0 14px}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.lnk{display:block;text-align:center;margin-top:14px;background:none;border:0;color:#4a2fe0;font-weight:800;width:100%}
+/* quiz */
+.top{display:flex;align-items:center;gap:12px;margin-bottom:14px;color:#fff;font-family:"Baloo 2",sans-serif;font-weight:800}
+.bar{flex:1;height:14px;background:rgba(255,255,255,.28);border-radius:14px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--t),var(--g));border-radius:14px;transition:width .35s}
+.pill{background:#fff;color:var(--ink);border-radius:999px;padding:6px 14px;box-shadow:0 4px 0 rgba(30,10,120,.3);white-space:nowrap}
+.qgrid{display:grid;grid-template-columns:230px 1fr;gap:26px;align-items:start}
+.side{display:flex;flex-direction:column;align-items:center;gap:10px;position:sticky;top:12px}
+.side .pg{width:190px}
+.sit small{color:#5b3df0;font-family:"Baloo 2",sans-serif;font-weight:800;letter-spacing:.08em}
+.sit h2{font-size:clamp(1.4rem,4.4vw,2.1rem);margin-top:6px;line-height:1.15}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;background:#fff;border:3px solid transparent;border-radius:22px;padding:18px 16px;font-weight:800;font-size:1.05rem;color:var(--ink);box-shadow:0 6px 0 #cfc8f5;transition:transform .08s}
+.opt span{font-size:2rem}
+.opt:hover:not(:disabled){transform:translateY(-2px)}
+.opt.ok{background:#d6ffd0;border-color:#2fbf2a}
+.opt.bad{background:#ffe0e0;border-color:var(--r)}
+.opt:disabled{cursor:default}
+.fb{margin-top:16px;background:#fff;border-radius:22px;padding:16px 18px;border-left:10px solid var(--g)}
+.fb.no{border-color:var(--r)}
+.fb .btn{margin-top:10px}
+.cf{position:fixed;top:-20px;width:10px;height:14px;border-radius:3px;z-index:9;animation:fall 1.6s ease-in forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:.9}}
+/* result + ranking */
+.res{display:flex;align-items:center;gap:20px;justify-content:center;flex-wrap:wrap;margin:6px 0 20px}
+.res .pg{width:190px}
+.res h1{color:#fff;font-size:clamp(2.2rem,8vw,3.8rem);text-shadow:0 4px 0 rgba(30,10,120,.35);margin:10px 0}
+.nums{display:flex;gap:18px;color:#fff;align-items:baseline}
+.nums b{font-family:"Baloo 2",sans-serif;font-size:2.2rem;color:var(--y)}
+.rk h3{font-size:2rem;margin:2px 0 12px}
+.rk small{color:#5b3df0;font-family:"Baloo 2",sans-serif;font-weight:800;letter-spacing:.08em}
+.pos{background:#fff3b0;border:3px solid var(--y);border-radius:16px;padding:8px 14px;font-weight:800}
+.hd{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.li{display:flex;align-items:center;gap:12px;background:var(--soft);border-radius:18px;padding:10px 14px;margin-top:8px;font-weight:800}
+.li.me{background:#fff3b0;border:3px solid var(--y)}
+.li .n{width:34px;text-align:center;font-size:1.3rem}
+.li .a{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-family:"Baloo 2",sans-serif;font-size:1.2rem}
+.li .nm{flex:1}
+.acts{display:flex;gap:12px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+/* outras telas */
+.hdr{display:flex;align-items:center;gap:14px;color:#fff;margin-bottom:16px}
+.hdr h2{font-size:2rem}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.how .card{text-align:center}
+.how .card span{font-size:3rem}
+.how h3{font-size:1.4rem;margin:6px 0}
+svg.map{width:100%;max-width:420px;display:block;margin:0 auto}
+svg.map g{cursor:pointer}
+.chip{display:inline-block;background:var(--soft);border-radius:999px;padding:4px 12px;margin:3px 3px 3px 0}
+.un{display:flex;gap:10px;align-items:flex-start;background:var(--soft);border-radius:16px;padding:10px 12px;margin-top:8px}
+.un .ic{font-size:1.35rem;line-height:1.3}
+.un b{display:block;font-family:"Baloo 2",sans-serif;line-height:1.2}
+.un small{display:block;color:var(--mut)}
+.note{font-size:.85rem;color:var(--mut)}
+.steps li{margin:12px 0}
+.tel{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.tel div{background:var(--soft);border-radius:18px;text-align:center;padding:12px 6px;font-weight:800}
+.tel b{display:block;font-family:"Baloo 2",sans-serif;font-size:2.4rem;color:#4a2fe0}
+/* extras */
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.snd{position:fixed;right:14px;bottom:14px;z-index:20;width:54px;height:54px;border-radius:50%;border:0;background:#fff;color:var(--ink);font-size:1.45rem;box-shadow:0 5px 0 rgba(30,10,120,.3)}
+.toast{position:fixed;left:50%;top:14px;transform:translateX(-50%) translateY(-150%);background:#fff;border:4px solid var(--y);border-radius:18px;padding:12px 18px;font-weight:800;box-shadow:0 6px 0 rgba(30,10,120,.25);z-index:30;transition:transform .3s;max-width:90vw;text-align:center}
+.toast.on{transform:translateX(-50%) translateY(0)}
+.bdgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:12px}
+.bdg{background:var(--soft);border-radius:18px;padding:14px 10px;text-align:center;opacity:.55;filter:grayscale(1)}
+.bdg.on{opacity:1;filter:none;background:#fff3b0;border:3px solid var(--y)}
+.bdg span{font-size:2rem;display:block;line-height:1.2}
+.bdg b{font-family:"Baloo 2",sans-serif;display:block;margin-top:4px}
+.bdg small{color:var(--mut)}
+.un .go{display:inline-block;margin:7px 6px 0 0;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:3px 11px;font-size:.82rem;font-weight:800;color:var(--ink);text-decoration:none}
+.sit .read{display:inline-block;margin:10px 0 0;background:var(--soft);border:0;border-radius:12px;padding:7px 11px;font-weight:800;color:var(--ink)}
+.sit .read[hidden]{display:none}
+.tel a{color:inherit;text-decoration:none}
+/* pingo moods */
+svg .e-w,svg .b-s,svg .medal{display:none}
+svg[data-m=wow] .e-n,svg[data-m=champ] .e-n{display:none}
+svg[data-m=wow] .e-w,svg[data-m=champ] .e-w,svg[data-m=champ] .medal{display:inline}
+svg[data-m=sad] .b-h{display:none}svg[data-m=sad] .b-s{display:inline}
+svg[data-m=sad] .lo,svg[data-m=think] .lo{display:none}
+@media (max-width:760px){
+.home{grid-template-columns:1fr;min-height:0}
+.qgrid{grid-template-columns:1fr}
+.side{flex-direction:row;position:static}
+.side .pg{width:110px}
+.opts{grid-template-columns:1fr}
+.how{grid-template-columns:1fr}
+.pg{width:130px}
+}
+@media (prefers-reduced-motion:reduce){.hop,.shake,.cf{animation:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="gc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a40b8"/><stop offset="1" stop-color="#232889"/></linearGradient>
+<linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#dfeaff"/></linearGradient>
+<linearGradient id="gk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb52e"/><stop offset="1" stop-color="#ff8a00"/></linearGradient>
+</defs></svg>
+
+<div class="wrap">
+
+<!-- INÍCIO -->
+<section class="scr" id="home">
+<div class="home">
+<div>
+<span class="tag">JOGO + MAPA INTERATIVO</span>
+<h1>Aonde eu vou?</h1>
+<h2>Saúde em Petrópolis</h2>
+<div class="mascot"><div class="pg"></div><div class="bub">Oi! Eu sou o Pingo!<br>Qual é o seu nome?</div></div>
+</div>
+<div class="card form">
+<label for="nome">Seu nome ou apelido</label>
+<input id="nome" maxlength="15" placeholder="Digite aqui..." autocomplete="off">
+<div class="cnt"><span id="cn">0</span>/15</div>
+<button class="btn" id="play" disabled>Bora jogar! →</button>
+<button class="btn s" id="cont" hidden style="width:100%;margin:0 0 14px"></button>
+<div class="row3">
+<button class="btn s" data-go="how">🎮 Como jogar</button>
+<button class="btn s" data-go="map">🗺️ Mapa</button>
+<button class="btn s" data-go="rank">🏆 Ranking</button>
+</div>
+<button class="lnk" data-go="badges">🏅 Minhas conquistas</button>
+<button class="lnk" data-go="steps">✨ Ver passo a passo do SUS</button>
+</div>
+</div>
+</section>
+
+<!-- COMO JOGAR -->
+<section class="scr" id="how" hidden>
+<div class="hdr"><button class="back" data-go="home" aria-label="Voltar">←</button><h2>Como jogar</h2></div>
+<div class="how">
+<div class="card"><span>📖</span><h3>Leia a situação</h3><p>São <span id="qtot">25</span> situações do dia a dia. Leia com atenção.</p></div>
+<div class="card"><span>👆</span><h3>Escolha aonde ir</h3><p>UBS, UPA, SAMU ou Bombeiros? Só uma resposta está certa.</p></div>
+<div class="card"><span>🏆</span><h3>Suba no ranking</h3><p>Cada acerto vale 10 pontos. A partir de 3 seguidos, ganha +5 de bônus!</p></div>
+</div>
+</section>
+
+<!-- QUIZ -->
+<section class="scr" id="quiz" hidden>
+<div class="top">
+<button class="back" data-go="home" aria-label="Sair do jogo">←</button>
+<span id="cnt"></span><div class="bar" id="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="pr"></i></div>
+<span class="pill">⭐ <span id="pt">0</span></span><span class="pill">🔥 <span id="st">0</span></span>
+</div>
+<div class="qgrid">
+<div class="side"><div class="pg" id="qpg"></div><div class="bub" id="qb"></div></div>
+<div>
+<div class="card sit"><small id="sn"></small><h2 id="sq"></h2><button class="read" id="read" type="button" aria-label="Ouvir a pergunta">🔊 Ouvir</button></div>
+<div class="opts" id="opts"></div>
+<div id="fb" aria-live="polite"></div>
+</div>
+</div>
+</section>
+
+<!-- RESULTADO -->
+<section class="scr" id="result" hidden>
+<div class="res">
+<div class="pg" id="rpg"></div>
+<div><span class="tag" id="rtag"></span><h1 id="rlvl"></h1>
+<div class="nums"><span><b id="rpt"></b> pontos</span><span><b id="rok"></b> acertos</span></div></div>
+</div>
+<div class="card rk"><div class="hd"><div><small>PLACAR DA GALERA</small><h3>Ranking</h3></div><div class="pos" id="rpos"></div></div><div id="rlist"></div><p class="note" style="margin:10px 0 0">O ranking guarda o melhor placar de cada nome.</p></div>
+<div class="acts"><button class="btn" id="again">Jogar de novo</button><button class="btn s" id="share">📤 Compartilhar</button><button class="btn s" data-go="home" style="font-size:1.1rem;padding:12px 22px">Trocar jogador</button></div>
+</section>
+
+<!-- RANKING -->
+<section class="scr" id="rank" hidden>
+<div class="hdr"><button class="back" data-go="home" aria-label="Voltar">←</button><h2>Ranking</h2></div>
+<div class="card rk"><small>PLACAR DA GALERA</small><h3>Os melhores do jogo</h3><div id="rlist2"></div><p class="note" style="margin:10px 0 0">O ranking guarda o melhor placar de cada nome.</p></div>
+</section>
+
+<!-- CONQUISTAS -->
+<section class="scr" id="badges" hidden>
+<div class="hdr"><button class="back" data-go="home" aria-label="Voltar">←</button><h2>Minhas conquistas</h2></div>
+<div class="card"><p style="margin:0"><b>Colecione medalhas jogando e explorando o mapa.</b></p><div class="bdgs" id="bdglist"></div></div>
+</section>
+
+<!-- MAPA -->
+<section class="scr" id="map" hidden>
+<div class="hdr"><button class="back" data-go="home" aria-label="Voltar">←</button><h2>Mapa dos distritos</h2></div>
+<div class="card">
+<p style="margin:0 0 6px"><b>Petrópolis tem 5 distritos.</b> Quanto mais longe do Centro, mais difícil pode ser chegar ao atendimento. Toque em um número!</p>
+<svg class="map" viewBox="0 0 300 330" role="img" aria-label="Trilha com os 5 distritos de Petrópolis">
+<path id="rd" d="M70 300 C 200 280, 230 250, 150 220 C 60 190, 60 150, 150 130 C 240 110, 230 70, 150 50 C 120 42, 110 30, 100 22" fill="none" stroke="#e4defc" stroke-width="22" stroke-linecap="round"/>
+<use href="#rd" fill="none" stroke="#8A3FFC" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>
+<g id="stops"></g>
+</svg>
+
+<div class="card" id="info" style="margin-top:16px"></div>
+</section>
+
+<!-- PASSO A PASSO -->
+<section class="scr" id="steps" hidden>
+<div class="hdr"><button class="back" data-go="home" aria-label="Voltar">←</button><h2>Passo a passo do SUS</h2></div>
+<div class="card">
+<ol class="steps">
+<li>🪪 Faça ou atualize o <b>Cartão SUS</b> na UBS do seu bairro.</li>
+<li>📄 Leve <b>documento com foto</b> e comprovante de endereço.</li>
+<li>🏠 Peça uma <b>consulta na UBS</b>, com o clínico ou o pediatra.</li>
+<li>📨 Se precisar de especialista ou exame, a UBS faz o <b>encaminhamento</b>.</li>
+<li>🚑 Urgência: vá à <b>UPA</b>. Emergência: ligue para o <b>SAMU</b>.</li>
+</ol>
+<div class="tel"><div><a href="tel:192"><b>192</b>SAMU</a></div><div><a href="tel:193"><b>193</b>Bombeiros</a></div><div><a href="tel:199"><b>199</b>Defesa Civil</a></div></div>
+</div>
+</section>
+
+</div>
+
+<button class="snd" id="snd" type="button" aria-label="Desligar sons" title="Sons ligados">🔊</button>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+var $=function(s){return document.querySelector(s)};
+
+/* ---------- Sons (gerados no navegador, sem arquivos) ---------- */
+var SND=(function(){
+ var ctx=null,muted=false;
+ try{muted=localStorage.getItem("pingo-mute")==="1"}catch(e){}
+ function ac(){
+  var C=window.AudioContext||window.webkitAudioContext;
+  if(!C)return null;
+  if(!ctx)ctx=new C();
+  if(ctx.state==="suspended")ctx.resume();
+  return ctx;
+ }
+ function tone(f,t0,dur,type,vol){
+  var c=ac();if(!c)return;
+  var o=c.createOscillator(),g=c.createGain();
+  o.type=type||"sine";o.frequency.setValueAtTime(f,t0);
+  g.gain.setValueAtTime(.0001,t0);
+  g.gain.exponentialRampToValueAtTime(vol||.15,t0+.015);
+  g.gain.exponentialRampToValueAtTime(.0001,t0+dur);
+  o.connect(g);g.connect(c.destination);o.start(t0);o.stop(t0+dur+.05);
+ }
+ function play(kind){
+  if(muted)return;
+  var c=ac();if(!c)return;
+  var t=c.currentTime+.01;
+  if(kind==="ok"){tone(523.25,t,.12,"triangle",.18);tone(783.99,t+.1,.18,"triangle",.16)}
+  else if(kind==="bad"){tone(220,t,.16,"sawtooth",.11);tone(164.81,t+.12,.24,"sawtooth",.09)}
+  else if(kind==="win"){tone(523.25,t,.12,"triangle");tone(659.25,t+.12,.12,"triangle");tone(783.99,t+.24,.12,"triangle");tone(1046.5,t+.36,.32,"triangle")}
+  else if(kind==="click"){tone(660,t,.06,"square",.06)}
+ }
+ return {play:play,toggle:function(){muted=!muted;try{localStorage.setItem("pingo-mute",muted?"1":"0")}catch(e){}return muted},isMuted:function(){return muted}};
+})();
+var sndBtn=$("#snd");
+function somIcon(){var m=SND.isMuted();sndBtn.textContent=m?"🔇":"🔊";sndBtn.setAttribute("aria-label",m?"Ligar sons":"Desligar sons");sndBtn.title=m?"Sons desligados":"Sons ligados"}
+sndBtn.onclick=function(){SND.toggle();somIcon();SND.play("click")};
+somIcon();
+var toastQ=[],toastOn=false;
+function toast(msg){toastQ.push(msg);if(!toastOn)toastNext()}
+function toastNext(){
+ var t=$("#toast"),m=toastQ.shift();
+ if(!m){toastOn=false;t.classList.remove("on");return}
+ toastOn=true;t.textContent=m;t.classList.add("on");
+ setTimeout(function(){t.classList.remove("on");setTimeout(toastNext,280)},2600);
+}
+
+/* ---------- Pingo (desenho em SVG) ---------- */
+var PINGO='<svg viewBox="0 0 400 450" data-m="happy" role="img" aria-label="Pingo, o pinguim mascote">'+
+'<path d="M82 205 C22 190 2 122 26 90 C50 98 72 150 106 192 Z" fill="#232889" stroke="#171b66" stroke-width="5" stroke-linejoin="round"/>'+
+'<path d="M318 205 C382 228 392 292 370 322 C346 306 326 268 296 232 Z" fill="#232889" stroke="#171b66" stroke-width="5" stroke-linejoin="round"/>'+
+'<ellipse cx="148" cy="428" rx="42" ry="17" fill="url(#gk)" stroke="#d96d00" stroke-width="4"/><ellipse cx="252" cy="428" rx="42" ry="17" fill="url(#gk)" stroke="#d96d00" stroke-width="4"/>'+
+'<path d="M200 36 C292 36 338 128 338 252 C338 366 288 424 200 424 C112 424 62 366 62 252 C62 128 108 36 200 36 Z" fill="url(#gc)" stroke="#171b66" stroke-width="6"/>'+
+'<ellipse cx="200" cy="306" rx="92" ry="108" fill="url(#gb)"/>'+
+'<g fill="#fff"><circle cx="150" cy="128" r="52"/><circle cx="250" cy="128" r="52"/><ellipse cx="200" cy="150" rx="88" ry="52"/></g>'+
+'<circle cx="118" cy="154" r="14" fill="#FF8FB8" opacity=".75"/><circle cx="282" cy="154" r="14" fill="#FF8FB8" opacity=".75"/>'+
+'<g class="e-n"><ellipse cx="158" cy="122" rx="18" ry="21" fill="#14163f"/><ellipse cx="242" cy="122" rx="18" ry="21" fill="#14163f"/><circle cx="165" cy="113" r="7" fill="#fff"/><circle cx="249" cy="113" r="7" fill="#fff"/><circle cx="152" cy="131" r="3.5" fill="#fff"/><circle cx="236" cy="131" r="3.5" fill="#fff"/></g>'+
+'<path class="e-w" d="M136 128 Q158 100 180 128 M220 128 Q242 100 264 128" fill="none" stroke="#14163f" stroke-width="8" stroke-linecap="round"/>'+
+'<path class="b-h" d="M136 92 Q158 78 180 92 M220 92 Q242 78 264 92" fill="none" stroke="#14163f" stroke-width="5" stroke-linecap="round"/>'+
+'<path class="b-s" d="M136 100 Q158 96 182 80 M218 80 Q242 96 264 100" fill="none" stroke="#14163f" stroke-width="5" stroke-linecap="round"/>'+
+'<path d="M176 146 Q200 130 224 146 Q218 162 200 164 Q182 162 176 146 Z" fill="url(#gk)" stroke="#d96d00" stroke-width="3.5" stroke-linejoin="round"/>'+
+'<g class="lo"><path d="M182 164 Q200 192 218 164 Q200 170 182 164 Z" fill="#e8590c" stroke="#d96d00" stroke-width="3.5" stroke-linejoin="round"/><path d="M190 174 Q200 184 210 174 Q200 170 190 174 Z" fill="#ff6f91"/></g>'+
+'<path d="M84 196 Q200 244 316 196 L324 232 Q200 292 76 232 Z" fill="#1EE3CF" stroke="#0a9f93" stroke-width="4" stroke-linejoin="round"/>'+
+'<path d="M262 252 L318 236 L336 340 Q308 358 280 344 Z" fill="#1EE3CF" stroke="#0a9f93" stroke-width="4" stroke-linejoin="round"/>'+
+'<circle cx="303" cy="294" r="19" fill="#fff" stroke="#0a9f93" stroke-width="3"/><path d="M297 294 H309 M303 288 V300" stroke="#FF4D6D" stroke-width="7" stroke-linecap="round"/>'+
+'<g class="medal"><path d="M180 262 L170 300 M220 262 L230 300" stroke="#FF4D8D" stroke-width="9"/><circle cx="200" cy="320" r="30" fill="#FFD93D" stroke="#e0a800" stroke-width="5"/><text x="200" y="332" text-anchor="middle" font-size="34" fill="#e0a800">★</text></g>'+
+'</svg>';
+function pingo(el,m,anim){
+ if(!el.firstChild)el.innerHTML=PINGO;
+ el.firstChild.setAttribute("data-m",m||"happy");
+ if(anim){el.classList.remove("hop","shake");void el.offsetWidth;el.classList.add(anim)}
+}
+document.querySelectorAll(".pg").forEach(function(e){pingo(e)});
+
+/* ---------- Dados (edite aqui!) ---------- */
+var OPC=[["🏠","UBS (posto de saúde)"],["🚑","UPA 24 horas"],["📞","SAMU 192"],["🚒","Bombeiros 193 ou Defesa Civil 199"]];
+var Q=[
+{s:"Seu primo de 6 anos está com febre baixa há 2 dias, mas brinca e come normal.",r:0,e:"A UBS cuida dos casos leves e acompanha a criança. Se a febre subir muito ou ela ficar muito mole, vá à UPA."},
+{s:"A carteirinha de vacinação está com vacina atrasada.",r:0,e:"As vacinas são gratuitas nas UBS."},
+{s:"Você se cortou fundo na mão e o sangue não para.",r:1,e:"Cortes que precisam de pontos são atendidos na UPA, que funciona 24 horas."},
+{s:"Alguém desmaiou na rua e não responde.",r:2,e:"É emergência! Ligue 192 e a ambulância vai até você."},
+{s:"Sua avó precisa renovar a receita do remédio de pressão.",r:0,e:"O acompanhamento de doenças do dia a dia é feito na UBS."},
+{s:"Choveu muito e a terra deslizou perto das casas.",r:3,e:"Em Petrópolis, os Bombeiros (193) e a Defesa Civil (199) atuam em deslizamentos e riscos da chuva."},
+{s:"Você torceu o tornozelo, ficou inchado e não dá para pisar.",r:1,e:"É uma urgência. A UPA avalia e faz raio-X se precisar."},
+{s:"Alguém sente dor forte no peito e falta de ar.",r:2,e:"Pode ser infarto. Ligue 192 na hora, cada minuto conta!"},
+{s:"Você quer fazer o Cartão SUS.",r:0,e:"O cadastro é feito na UBS do seu bairro, com documento com foto."},
+{s:"Na época da dengue, uma pessoa com febre começa a ter dor forte na barriga, vômitos sem parar e sangramento.",r:1,e:"São sinais de alarme da dengue. É preciso atendimento urgente, na UPA."},
+{s:"Sua tia está grávida e precisa começar o pré-natal.",r:0,e:"O acompanhamento da gravidez começa na UBS."},
+{s:"Um amigo se engasgou e não consegue respirar nem falar.",r:2,e:"Ligue 192 e siga as orientações do atendente enquanto a ajuda chega."},
+{s:"Pegou fogo na casa do vizinho.",r:3,e:"Incêndio é com os Bombeiros. Ligue 193."},
+{s:"Você está com dor de garganta e tosse há 3 dias, sem falta de ar.",r:0,e:"Casos leves são atendidos na UBS."},
+{s:"Você quer fazer uma consulta de rotina e pedir exames de check-up.",r:0,e:"A prevenção e os exames de rotina começam na UBS."},
+{s:"Uma criança bateu a cabeça, ficou tonta e vomitou.",r:1,e:"Depois de uma batida na cabeça, tontura e vômito são sinais de alerta. Vá à UPA para avaliação."},
+{s:"Você quer tomar a vacina da gripe.",r:0,e:"As vacinas do calendário são aplicadas gratuitamente na UBS."},
+{s:"Uma pessoa está tendo uma convulsão e não acorda.",r:2,e:"É emergência! Ligue 192 e não coloque nada na boca da pessoa."},
+{s:"Depois da chuva, uma árvore caiu na rua e há um fio elétrico no chão.",r:3,e:"Risco de choque e desabamento é com os Bombeiros (193) e a Defesa Civil (199). Não chegue perto."},
+{s:"Você está com manchas vermelhas e coceira na pele há uma semana.",r:0,e:"Problemas de pele sem sinais graves podem ser avaliados na UBS."},
+{s:"Você fez um exame e precisa mostrar o resultado ao clínico.",r:0,e:"O acompanhamento e a entrega de exames de rotina acontecem na UBS."},
+{s:"Uma criança de 2 anos está com falta de ar e os lábios roxos.",r:2,e:"É emergência! Lábios roxos e falta de ar pedem SAMU 192 imediatamente."},
+{s:"Você está com dor de dente por uma cárie, sem febre.",r:0,e:"A UBS tem atendimento de saúde bucal para casos como cárie e dor de dente."},
+{s:"Sua casa fica em uma área de risco e a chuva não para.",r:3,e:"Procure a Defesa Civil (199). Em risco imediato de deslizamento, ligue 193."},
+{s:"Um motociclista caiu e está com a perna deformada, mas consciente.",r:1,e:"É uma urgência com possível fratura. A UPA avalia e imobiliza."},
+{s:"Você precisa de um atestado médico por dor nas costas há 2 dias.",r:0,e:"Casos sem sinais de emergência são atendidos na UBS."},
+{s:"Alguém comeu algo e está com a garganta inchando, chiado e falta de ar.",r:2,e:"Pode ser reação alérgica grave. Ligue 192 na hora."}];
+var D=[
+{n:"1º distrito",b:"Centro, Quitandinha, Valparaíso",x:70,y:300,t:"Concentra mais serviços perto uns dos outros, mas é preciso saber qual é a sua UBS.",
+u:[
+{i:"🏥",n:"UBS Quitandinha Dra. Zilda Arns",a:"Rua General Rondon, 490 – Quitandinha",t:"8h às 20h • (24) 2246-9195"},
+{i:"🏥",n:"Centro de Saúde Itamarati",a:"Rua Bernardo Proença, 32 – Itamarati",t:"(24) 2243-5432"},
+{i:"🏥",n:"UBS Alto da Serra Frei Leão",a:"Rua Tereza, 2024 – Alto da Serra",t:"(24) 2231-3686"},
+{i:"🏥",n:"UBS Mosela Dr. João Werneck",a:"Rua Mosela, 744 – Mosela",t:"(24) 2249-6909"},
+{i:"🏥",n:"UBS Valparaíso",a:"Rua Nossa Senhora Aparecida, s/n – Valparaíso",t:"(24) 2248-8497"},
+{i:"🚑",n:"UPA Centro (urgência 24h)",a:"Rua Washington Luiz, 600 – Centro",t:"24 horas"}]},
+{n:"2º distrito",b:"Cascatinha, Nogueira, Corrêas",x:200,y:250,t:"Fica mais longe do Centro. O ônibus pode demorar e há muita ladeira.",
+u:[
+{i:"🏥",n:"UBS Machado Fagundes",a:"Rua Dr. Paulo Hudge, 238 – Cascatinha",t:"(24) 2248-8752"},
+{i:"🏥",n:"UBS Nova Cascatinha",a:"Rua Hivio Naliato, 951 – Samambaia",t:"(24) 2280-1694"},
+{i:"🏥",n:"UBS Corrêas",a:"Estrada União Indústria, 4672 – Corrêas",t:"(24) 2236-6600"},
+{i:"🏥",n:"UBS Águas Lindas",a:"Estrada do Palmital, 768 – Nogueira",t:"(24) 2236-2353"},
+{i:"🏥",n:"UBS Araras",a:"Estrada Bernardo Coutinho, 2256 – Araras",t:"(24) 2225-1320"},
+{i:"🚑",n:"UPA Cascatinha (urgência 24h)",a:"Rua Bernardo Proença, 500 – Itamarati",t:"24 horas"}]},
+{n:"3º distrito",b:"Itaipava",x:90,y:170,t:"Região afastada do Centro. Conhecer a unidade mais perto de casa evita viagem à toa.",
+u:[
+{i:"🏥",n:"UBS Itaipava",a:"Estrada Philúvio Cerqueira Rodrigues, s/n – Itaipava",t:"8h às 20h • (24) 2291-1356"},
+{i:"🏥",n:"UBS Lajinha Padre Quinha",a:"Estrada Philúvio Cerqueira Rodrigues, s/n – Itaipava",t:"(24) 2222-5196"},
+{i:"🏥",n:"UBS São Sebastião",a:"Rua São Sebastião, 625 – Itaipava",t:"(24) 2291-7569"},
+{i:"🚑",n:"UPA Itaipava (urgência 24h)",a:"Estrada União e Indústria, 11.755 – Itaipava",t:"24 horas • (24) 2249-4334"}]},
+{n:"4º distrito",b:"Pedro do Rio",x:205,y:90,t:"Região mais rural, onde a distância até o atendimento pesa bastante.",
+u:[
+{i:"🏥",n:"UBS Pedro do Rio Dr. Jorge Chimeli",a:"Estrada União Indústria, 19.691 – Pedro do Rio",t:"8h às 20h • (24) 2223-2035"},
+{i:"🏥",n:"UBS Vila Rica",a:"Rua A, s/n – Pedro do Rio",t:"(24) 2223-5405"},
+{i:"🏥",n:"UBS Secretário",a:"Rua Visconde de São Bernardes, 320 – Secretário",t:"(24) 2228-1420"},
+{i:"🚑",n:"UPH Pedro do Rio (urgência 24h)",a:"Estrada União Indústria – Pedro do Rio",t:"24 horas"}]},
+{n:"5º distrito",b:"Posse",x:100,y:24,t:"Um dos pontos mais distantes. Saber onde fica a UBS local faz toda a diferença.",
+u:[
+{i:"🏥",n:"UBS Posse Generosa Rosa Barros",a:"Estrada União Indústria, 33.530 – Posse",t:"8h às 20h • (24) 2259-2251"},
+{i:"🏥",n:"UBS Brejal Arlindo de Carvalho",a:"Estrada do Brejal, s/n – Posse",t:"(24) 2259-2016"},
+{i:"🚑",n:"UPH Posse (urgência 24h)",a:"Estrada União Indústria, 33.530 – Posse",t:"24 horas"}]}];
+
+/* ---------- Conquistas ---------- */
+var ACH=[
+{id:"first",n:"Primeiro passo",d:"Complete o quiz uma vez.",i:"🐧"},
+{id:"combo3",n:"Em ritmo",d:"Acerte 3 seguidas.",i:"🔥"},
+{id:"combo5",n:"Combo de 5",d:"Acerte 5 seguidas.",i:"⚡"},
+{id:"ten",n:"Nota 10",d:"Acerte 10 perguntas.",i:"🔟"},
+{id:"craque",n:"Craque da Saúde",d:"Acerte 80% ou mais.",i:"🌟"},
+{id:"perfect",n:"Gabaritou",d:"Acerte todas as perguntas.",i:"🏆"},
+{id:"explorer",n:"Explorador",d:"Abra os 5 distritos no mapa.",i:"🗺️"},
+{id:"veteran",n:"Veterano",d:"Complete o quiz 3 vezes.",i:"🎖️"}];
+function conquistasSalvas(){try{return JSON.parse(localStorage.getItem("pingo-badges")||"[]")}catch(e){return[]}}
+function temConquista(id){return conquistasSalvas().indexOf(id)>=0}
+function desbloquear(id){
+ if(temConquista(id))return false;
+ var b=null;
+ for(var i=0;i<ACH.length;i++)if(ACH[i].id===id)b=ACH[i];
+ try{var a=conquistasSalvas();a.push(id);localStorage.setItem("pingo-badges",JSON.stringify(a))}catch(e){}
+ if(b)toast("🏅 Conquista desbloqueada: "+b.n);
+ return true;
+}
+function renderBadges(){
+ var h="";
+ ACH.forEach(function(b){
+  var on=temConquista(b.id);
+  h+='<div class="bdg'+(on?" on":"")+'"><span>'+(on?b.i:"🔒")+'</span><b>'+b.n+'</b><small>'+(on?b.d:"Bloqueada: "+b.d)+'</small></div>';
+ });
+ $("#bdglist").innerHTML=h;
+}
+function playsGet(){return Number(localStorage.getItem("pingo-plays")||0)||0}
+function playsAdd(){var n=playsGet()+1;try{localStorage.setItem("pingo-plays",String(n))}catch(e){}return n}
+function vistos(){try{return JSON.parse(localStorage.getItem("pingo-map-seen")||"[]")}catch(e){return[]}}
+
+/* ---------- Navegação ---------- */
+function go(id){
+ document.querySelectorAll(".scr").forEach(function(s){s.hidden=s.id!==id});
+ if(id==="rank")$("#rlist2").innerHTML=lista(todos(null,0),-1);
+ if(id==="badges")renderBadges();
+ if(id==="home")verProgresso();
+ window.scrollTo(0,0);
+}
+document.querySelectorAll("[data-go]").forEach(function(b){b.onclick=function(){go(b.dataset.go)}});
+
+/* ---------- Tela inicial ---------- */
+var inp=$("#nome"),bt=$("#play"),cont=$("#cont");
+inp.oninput=function(){$("#cn").textContent=inp.value.length;bt.disabled=!inp.value.trim()};
+inp.onkeydown=function(e){if(e.key==="Enter"&&!bt.disabled)start()};
+bt.onclick=start;
+$("#again").onclick=start;
+function verProgresso(){
+ var p=lerProgresso();
+ if(p){
+  inp.value=p.nome;$("#cn").textContent=p.nome.length;bt.disabled=false;
+  cont.hidden=false;cont.textContent="▶ Continuar o jogo de "+p.nome+" ("+p.pts+" pts)";
+ }else{cont.hidden=true}
+}
+cont.onclick=function(){
+ var p=lerProgresso();if(!p){verProgresso();return}
+ G={nome:p.nome,q:p.q,i:p.i,pts:p.pts,ok:p.ok,st:p.st,done:false};
+ go("quiz");ask();
+};
+$("#qtot").textContent=Q.length;
+verProgresso();
+$("#share").onclick=function(){
+ var txt="Fiz "+G.pts+" pontos e acertei "+G.ok+" de "+Q.length+" no jogo Aonde eu vou? Saúde em Petrópolis!";
+ function zap(){window.open("https://wa.me/?text="+encodeURIComponent(txt),"_blank","noopener")}
+ if(navigator.share){navigator.share({title:"Aonde eu vou? Saúde em Petrópolis",text:txt}).catch(zap)}
+ else{zap()}
+};
+
+/* ---------- Voz (leitura da pergunta) ---------- */
+var falaOk=("speechSynthesis" in window);
+if(!falaOk)$("#read").hidden=true;
+$("#read").onclick=function(){
+ if(!falaOk||!$("#sq").textContent)return;
+ speechSynthesis.cancel();
+ var opts=OPC.map(function(o){return o[1]}).join(". ");
+ var u=new SpeechSynthesisUtterance("Situação "+(G.i+1)+". "+$("#sq").textContent+". Opções: "+opts+".");
+ u.lang="pt-BR";u.rate=.95;speechSynthesis.speak(u);
+};
+
+/* ---------- Jogo ---------- */
+var G={};
+function shuf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function salvarProgresso(){
+ if(!G.nome||!G.q||G.done)return;
+ try{localStorage.setItem("pingo-progress",JSON.stringify({nome:G.nome,q:G.q,i:G.i,pts:G.pts,ok:G.ok,st:G.st}))}catch(e){}
+}
+function limparProgresso(){try{localStorage.removeItem("pingo-progress")}catch(e){}}
+function lerProgresso(){
+ try{
+  var p=JSON.parse(localStorage.getItem("pingo-progress")||"null");
+  if(!p||!p.nome||!Array.isArray(p.q)||p.q.length!==Q.length||p.i<0||p.i>=Q.length)return null;
+  return p;
+ }catch(e){return null}
+}
+function start(){
+ if(inp.value.trim())G.nome=inp.value.trim().slice(0,15);
+ if(!G.nome){go("home");return}
+ limparProgresso();cont.hidden=true;
+ G.q=shuf(Q.map(function(_,i){return i}));G.i=0;G.pts=0;G.ok=0;G.st=0;G.done=false;
+ go("quiz");ask();
+}
+function ask(){
+ var q=Q[G.q[G.i]];G.done=false;
+ if(falaOk)speechSynthesis.cancel();
+ $("#cnt").textContent=(G.i+1)+"/"+Q.length;
+ var pct=(G.i+1)/Q.length*100;
+ $("#pr").style.width=pct+"%";$("#bar").setAttribute("aria-valuenow",Math.round(pct));
+ $("#pt").textContent=G.pts;$("#st").textContent=G.st;
+ $("#sn").textContent="SITUAÇÃO "+(G.i+1);$("#sq").textContent=q.s;
+ $("#qb").innerHTML="Ei, "+esc(G.nome)+"!<br>Para onde você iria?";
+ pingo($("#qpg"),"think");
+ $("#fb").innerHTML="";
+ var h="";
+ shuf([0,1,2,3]).forEach(function(k){h+='<button class="opt" data-k="'+k+'"><span>'+OPC[k][0]+'</span>'+OPC[k][1]+'</button>'});
+ $("#opts").innerHTML=h;
+ document.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){pick(+b.dataset.k,b)}});
+ salvarProgresso();
+ try{$("#sq").setAttribute("tabindex","-1");$("#sq").focus({preventScroll:true})}catch(e){}
+}
+function pick(k,b){
+ if(G.done)return;G.done=true;
+ var q=Q[G.q[G.i]],ok=k===q.r,bonus=0;
+ document.querySelectorAll(".opt").forEach(function(x){x.disabled=true;if(+x.dataset.k===q.r){x.classList.add("ok");x.insertAdjacentHTML("beforeend"," ✓")}});
+ if(ok){G.ok++;G.st++;G.pts+=10;if(G.st>=3){bonus=5;G.pts+=5}
+   SND.play("ok");
+   if(G.st>=3)desbloquear("combo3");
+   if(G.st>=5)desbloquear("combo5");
+   pingo($("#qpg"),"wow","hop");$("#qb").textContent="Isso aí, arrasou! 🎉";confete()}
+ else{G.st=0;b.classList.add("bad");b.insertAdjacentHTML("beforeend"," ✗");
+   SND.play("bad");
+   pingo($("#qpg"),"sad","shake");$("#qb").textContent="Quase! Na próxima você acerta."}
+ $("#pt").textContent=G.pts;$("#st").textContent=G.st;
+ var last=G.i===Q.length-1;
+ $("#fb").innerHTML='<div class="fb'+(ok?"":" no")+'"><b>'+(ok?"Acertou! +10"+(bonus?" +5 de combo 🔥":""):"A resposta certa era: "+OPC[q.r][1])+'</b><br>'+q.e+'<br><button class="btn" id="nx">'+(last?"Ver meu resultado":"Próxima →")+'</button></div>';
+ $("#nx").onclick=function(){G.i++;last?fim():ask()};
+ $("#nx").focus();
+}
+function esc(s){return s.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function confete(){
+ if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+ var cs=["#FFD93D","#FF4D8D","#1EE3CF","#7CFF6B","#fff"];
+ for(var i=0;i<28;i++){var s=document.createElement("span");s.className="cf";s.style.left=Math.random()*100+"vw";s.style.background=cs[i%5];s.style.animationDelay=Math.random()*.3+"s";document.body.appendChild(s);setTimeout(function(e){e.remove()},2200,s)}
+}
+
+/* ---------- Ranking ---------- */
+function salvos(){try{return JSON.parse(localStorage.getItem("pingo-rank-v2")||"[]")}catch(e){return[]}}
+/* guarda o melhor placar de cada nome */
+function guardar(n,p){try{
+ var a=salvos(),k=-1;
+ for(var i=0;i<a.length;i++){if(a[i][0]===n){k=i;break}}
+ if(k>=0){if(p>a[k][1])a[k][1]=p}else{a.push([n,p])}
+ a.sort(function(x,y){return y[1]-x[1]});
+ localStorage.setItem("pingo-rank-v2",JSON.stringify(a.slice(0,20)))
+}catch(e){}}
+/* ranking só com quem jogou + jogador atual, sem duplicar nomes */
+function todos(nome,p){
+ var a=salvos().map(function(x){return{n:x[0],p:x[1]}});
+ a.sort(function(x,y){return y.p-x.p});
+ var idx=-1;
+ if(nome!==null){
+  var k=a.findIndex(function(x){return x.n===nome});
+  if(k>=0){
+   if(p>a[k].p)a[k].p=p;
+   a[k].me=true;
+   a.sort(function(x,y){return y.p-x.p});
+   idx=a.findIndex(function(x){return x.n===nome});
+  }else{
+   var j=a.findIndex(function(x){return x.p<p});if(j<0)j=a.length;
+   a.splice(j,0,{n:nome,p:p,me:true});idx=j;
+  }
+ }
+ a.idx=idx;return a;
+}
+var COR=["#1EE3CF","#FF9AC1","#C8FF6B","#C3B5FF","#FFC86B","#8FE3FF"];
+function lista(a,me){
+ if(!a.length)return '<div class="li" style="justify-content:center">Ainda ninguém jogou. Seja o primeiro! 🐧</div>';
+ var h="",tmp=[];
+ for(var i=0;i<a.length;i++){if(i<10||i===me)tmp.push(i)}
+ var prev=-1;
+ tmp.forEach(function(i){
+  if(prev>=0&&i-prev>1)h+='<div class="li" style="justify-content:center">⋯</div>';
+  prev=i;var x=a[i],c=COR[(x.n.charCodeAt(0)+x.n.length)%COR.length];
+  h+='<div class="li'+(x.me?" me":"")+'"><span class="n">'+(i<3?["🥇","🥈","🥉"][i]:(i+1)+"º")+'</span><span class="a" style="background:'+c+'">'+esc(x.n[0].toUpperCase())+'</span><span class="nm">'+esc(x.n)+(x.me?" (você)":"")+'</span><span>'+x.p+' pts</span></div>';
+ });
+ return h;
+}
+function fim(){
+ limparProgresso();cont.hidden=true;
+ guardar(G.nome,G.pts);
+ var a=todos(G.nome,G.pts),pos=a.idx+1;
+ var pct=G.ok/Q.length;
+ var plays=playsAdd();
+ desbloquear("first");
+ if(G.ok>=10)desbloquear("ten");
+ if(pct>=.8)desbloquear("craque");
+ if(G.ok===Q.length)desbloquear("perfect");
+ if(plays>=3)desbloquear("veteran");
+ var lv=pct>=.8?["Craque da Saúde! 🌟","champ"]:pct>=.5?["Quase lá! 👏","wow"]:["Bora treinar mais! 💪","happy"];
+ $("#rtag").textContent="VOCÊ CONSEGUIU, "+G.nome.toUpperCase()+"!";
+ $("#rlvl").textContent=lv[0];$("#rpt").textContent=G.pts;$("#rok").textContent=G.ok+"/"+Q.length;
+ $("#rpos").textContent="Você ficou em "+pos+"º lugar!";
+ $("#rlist").innerHTML=lista(a,a.idx);
+ pingo($("#rpg"),pct>=.5?"champ":"happy","hop");
+ SND.play("win");
+ go("result");if(pct>=.5)confete();
+}
+
+/* ---------- Mapa ---------- */
+var stops=$("#stops"),info=$("#info");
+function telDe(t){var m=t.match(/\(?(\d{2})\)?\s*(\d{4,5})[-\s]?(\d{4})/);return m?"tel:+55"+m[1]+m[2]+m[3]:""}
+function rotaDe(a){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(a+", Petrópolis - RJ")}
+D.forEach(function(d,k){
+ var g=document.createElementNS("http://www.w3.org/2000/svg","g");
+ g.setAttribute("tabindex","0");g.setAttribute("role","button");g.setAttribute("aria-label",d.n);
+ g.innerHTML='<circle cx="'+d.x+'" cy="'+d.y+'" r="22" fill="#4a2fe0" stroke="#fff" stroke-width="4"/><text x="'+d.x+'" y="'+(d.y+8)+'" text-anchor="middle" font-size="22" font-weight="800" font-family="Baloo 2,sans-serif" fill="#fff">'+(k+1)+'</text>';
+  function abrir(){
+   stops.querySelectorAll("circle").forEach(function(c){c.setAttribute("fill","#4a2fe0")});
+   g.querySelector("circle").setAttribute("fill","#1fb36a");
+   var seen=vistos();
+   if(seen.indexOf(k)<0){seen.push(k);try{localStorage.setItem("pingo-map-seen",JSON.stringify(seen))}catch(e){}}
+   if(seen.length>=D.length)desbloquear("explorer");
+   var un=(d.u||[]).map(function(u){
+    var fone=telDe(u.t);
+    return'<div class="un"><span class="ic">'+u.i+'</span><div><b>'+u.n+'</b>'+u.a+'<small>'+u.t+'</small><span>'+(fone?'<a class="go" href="'+fone+'">📞 Ligar</a>':'')+'<a class="go" href="'+rotaDe(u.a)+'" target="_blank" rel="noopener">📍 Rota</a></span></div></div>';
+   }).join("");
+   info.innerHTML='<h3 style="font-size:1.8rem">'+d.n+'</h3><div style="margin:8px 0">'+d.b.split(", ").map(function(x){return'<span class="chip">'+x+'</span>'}).join("")+'</div><p style="margin:6px 0"><b>🐧 Dica do Pingo:</b> '+d.t+'</p><h3 style="font-size:1.45rem;margin:14px 0 2px">Onde buscar atendimento</h3>'+un+'<p style="margin:10px 0 0">Em emergência, ligue <a href="tel:192" style="color:#4a2fe0"><b>SAMU 192</b></a>. Incêndio ou deslizamento: <a href="tel:193" style="color:#4a2fe0"><b>Bombeiros 193</b></a> / <a href="tel:199" style="color:#4a2fe0"><b>Defesa Civil 199</b></a>.</p><p class="note" style="margin:6px 0 0">Dados públicos do CNES/Prefeitura. Confirme endereços e horários antes de ir.</p>';
+  }
+ g.onclick=abrir;g.onkeydown=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();abrir()}};
+ stops.appendChild(g);
+});
+info.innerHTML='<span style="color:var(--mut)">👆 Toque em um número do mapa para ver o distrito.</span>';
+</script>
+</body>
+</html>
